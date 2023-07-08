@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/components/css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+    <header class="title">
+        <h1>To Do Delux</h1>
+    </header>
+    <div class="container">
+        <div class="newTaskContainer">
+            <input type="text" class="newTaskInput" placeholder="Describe your task...">
+
+            <button class="newTaskButton"><i class="fa-solid fa-plus"></i></button>
+        </div>
+        <div class="editTaskContainer hide">
+            <h3>Edit your Task:</h3>
+            <div class="edition">
+                <input type="text" class="editTaskInput">
+                <button class="newTaskButton saveEditTaskButton"><i class="fa-solid fa-check-double"></i></button>
+            </div>
+            <button class="cancelBtn">cancel</button>
+        </div>
+        
+        <div class="tasksContainer"></div>
+    </div>
+
+    <script src="/components/js/scripts.js" type="module" defer></script>
+</body>
+</html>

@@ -19,188 +19,71 @@ body {
     flex-direction: column;
 }
 
-.title {
-    width: 35%;
-    margin-top: 30px;
-    text-align: center;
-    background-color: #fcfcfc;
-    border-radius: 6px;
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+    height: 100%;
+    width: 300px;
 }
 
-.title h1 {
+.loginForm input {
+    background: inherit;
+    border: none;
+    border-bottom: 1px black solid;
+}
+
+.loginForm input::placeholder {
+    color: rgba(0, 0, 0, 0.74);
+}
+
+#loginInputText {
+    margin-bottom: 1rem;
+}
+
+.loginContainer h1 {
+    text-align: center;
     text-transform: uppercase;
 }
 
-.container {
+.between {
+    padding: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.buttonsContainer {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    margin-top: 20px;
-    border: 2px solid #fff;
-    padding: 30px 40px;
-    width: 40%;
-    min-width: 500px;
-    max-height: 70%;
+    padding: 5px 15px;
+    width: 230px;
 }
 
-.editTaskContainer {
-    background-color: #fff;
-    padding: 30px 20px;
-    border-radius: 5px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3) ;
-    position: fixed;
-    z-index: 1;
-    top: 28%;
-    left: 28%;
-}
-
-.editTaskContainer input {
-    flex: 3;
-    font-size: 1rem;
-    border: 2px solid #d1d3d4;
-    border-radius: 5px;
-    padding: 12px;
-    width: 400px;
-    font-weight: 500;
-}
-
-.cancelBtn {
-    margin-top: 50px;
-    border-radius: 5px;
-    font-weight: 500;
-    height: 100%;
-    font-size: 1rem;
+.buttonsContainer button {
+    cursor: pointer;
+    background: none;
     border: none;
-    background-color: #41b883 ;
-    color: #fff;
-    padding: 12px;
-    margin-left: 12px;
-    cursor: pointer;
+    opacity: 0.6;
 }
 
-.newTaskContainer {
-    background-color: #fff;
-    padding: 30px 20px;
-    border-radius: 5px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3) ;
-    display: flex;
+.buttonsContainer button:hover {
+    background: linear-gradient(90deg,
+     rgba(65, 184, 131, 1) 0%,
+     rgba(0, 212, 255, 1) 100%
+    );
+    border-bottom: 1px black solid;
+    border-right: 1px black solid;
+    border-radius: 15px;
+    opacity: 1;
 }
 
-.newTaskContainer input {
-    flex: 3;
-    font-size: 1rem;
-    border: 2px solid #d1d3d4;
-    border-radius: 5px;
-    padding: 12px;
-    font-weight: 500;
-}
-
-.newTaskContainer input:focus {
-    outline: none;   
-    border-color: #41b883;
-}
-
-.newTaskButton {
-    flex: 1;
-    border-radius: 5px;
-    font-weight: 500;
-    height: 100%;
-    font-size: 1rem;
-    border: none;
-    background-color: #41b883 ;
-    color: #fff;
-    padding: 12px;
-    margin-left: 12px;
-    cursor: pointer;
-}
-
-/* gridClasses */
-.task {
-    grid-area: task;
-}
-.buttons {
-    grid-area: options;
-}
-.footer {
-    grid-area: footer;
-}
-/* gridClasses */
-
-.tasksContainer {
-    background-color: #fff;
-    padding: 30px 20px;
-    margin-top: 60px;
-    border-radius: 10px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    overflow: auto;
-}
-
-.taskItem {
-    display: grid;
-    grid-template-columns: 150px auto 100px;
-    grid-template-rows: auto;
-    grid-gap: 10px;
-    grid-template-areas:
-        "task task options"
-        ". . footer"
-    ;
-    margin-bottom: 16px;
-}
-
-.divisor {
-    padding-bottom: .5rem;
-    border-bottom: #d1d3d456 2px solid;
-}
-
-.taskItem p {
-    width: 70%;
-}
-
-.buttonsTasks {
-    min-width: 100px;
-    display: flex;
-    justify-content: space-evenly;
-    background-color: #41b883;
-    padding: 8px;
-    border-radius: 5px;
-}
-
-.buttonsTasks i {
-    cursor: pointer;
-    color: #f0e3e3;
-}
-
-.clock {
-    display: flex;
-    width: 100%;
-    justify-content: end;
-}
-
-.clock h4 {
-    font-size: 10px;
-    color: #65737aa2;
+.buttonsContainer a {
+    text-decoration: none;
+    color: inherit;
+    text-transform: uppercase;
 }
 
 .footerText {
     bottom: 0;
     position: fixed;
 
-}
-
-/* utilites */
-.error {
-    border: 2px solid red !important;
-}
-
-.error::placeholder {
-    color: red;
-}
-
-.completed {
-    text-decoration: line-through;
-}
-
-.hide {
-    display: none;
 }

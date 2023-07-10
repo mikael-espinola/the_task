@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="components/style/styles.css">
-    <title>Login: To Do Delux</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Login: The Task Delux</title>
 </head>
+
 <body>
-    <button><a href="components/pages/todoPage.html">OPEN!</a></button>
+    <section class="loginContainer">
+        <h1>welcome!</h1>
+        <form class="loginForm">
+            <p>User:</p>
+            <input type="email" class="between" id="loginInputText" placeholder="Enter your user...">
+            <p>Password:</p>
+            <input type="password" class="between" id="loginInputKey" placeholder="Enter your password...">
+        </form>
+    </section>
+    <section class="buttonsContainer">
+        <button class=" between loginButton"><a>login <i
+                    class="fa-solid fa-arrow-right-to-bracket"></i></a></button>
+        <button class=" between registerButton"><a href=""><i class="fa-solid fa-user-plus"></i> register here
+            </a></button>
+    </section>
+
+    <footer class="footerText">
+        <p>Created by Mikael Espínola © 2023 </p>
+    </footer>
+
+    <script type="module" src="./components/core/inicial.js" defer></script>
 </body>
+
 </html>

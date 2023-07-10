@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 const inputElement = document.querySelector(".newTaskInput");
 const addButton = document.querySelector(".newTaskButton");
 const tasksContainer = document.querySelector(".tasksContainer");
+const completedContainer = document.querySelector(".completedTasksContainer");
 const editTaskContainer = document.querySelector(".editTaskContainer");
 const editButton = document.querySelector(".editButton");
 const cancelBtn = document.querySelector(".cancelBtn");
@@ -10,6 +11,8 @@ const editInputElement = document.querySelector(".editTaskInput");
 const saveEditButton = document.querySelector(".saveEditTaskButton");
 
 let todoList = []
+let completedList = [];
+let deletedList = [];
 
 
 const validateInput = () => inputElement.value.trim().length > 0;
@@ -35,6 +38,7 @@ const renderTodo = (todo) => {
 
         const taskContent = document.createElement('p');
         taskContent.classList.add('task');
+        taskContent.classList.add('completedTask');
         taskContent.innerText = todo.title;
         taskItemContainer.appendChild(taskContent);
 
@@ -94,13 +98,51 @@ const renderTodo = (todo) => {
     }
 }
 
+const renderCompletedTask = (todo) => {
+    if (!document.querySelector(`div[todoId="${todo.id}"]`)) {
+        const completedItem = document.createElement('div');
+        completedItem.classList.add("completedItem");
+        completedItem.classList.add("divisor");
+        completedItem.setAttribute('todoId', todo.id)
+
+        const taskContent = document.createElement('p');
+        taskContent.classList.add('task');
+        taskContent.innerText = todo.title;
+        completedItem.appendChild(taskContent);
+
+        const buttonsContainer = document.createElement('section');
+        buttonsContainer.classList.add("buttonsTasks");
+        buttonsContainer.classList.add("buttons");
+        completedItem.appendChild(buttonsContainer);
+
+        const completeButton = document.createElement('i');
+        completeButton.classList.add('fa-solid');
+        completeButton.classList.add('fa-rotate');
+        buttonsContainer.appendChild(completeButton);
+
+        completeButton.addEventListener("click", () => handleRestoreCompletedTask(todo.id))
+
+        const timeClockItem = document.createElement('footer');
+        timeClockItem.classList.add("clock");
+        timeClockItem.classList.add("footer");
+        completedItem.appendChild(timeClockItem);
+
+        let registertime = document.createElement('h4');
+        registertime.classList.add("createdAt");
+        registertime.innerHTML = formatDateObject(todo.time);
+        timeClockItem.appendChild(registertime)
+        
+        completedContainer.appendChild(completedItem);
+        updateLocalStorage();
+    }
+}
+
 const handleAddTask = () => {
     const newTodo = createTodo(inputElement.value)
 
     if (!newTodo) {
         return inputElement.classList.add("error");
     }
-    console.log(newTodo)
 
     renderTodo(newTodo)
 };
@@ -125,15 +167,26 @@ function createTodo(title) {
 
 const handleCompleteClick = (todoId) => {
 
-    todoList = todoList.map((todo) => {
-        if (todo.id === todoId) {
-            return { ...todo, completed: true }
-        }
-        return todo
-    })
-    renderTodo(todoList.find((todo) => todo.id === todoId))
+    document.querySelector(`div[todoID="${todoId}"]`).remove();
+
+    completedList.push(todoList.find((todo) => todo.id === todoId));
+    todoList = todoList.filter((todo) => todo.id !== todoId);
+    renderCompletedTask(completedList.find((todo) => todo.id === todoId))
     updateLocalStorage();
 };
+
+const handleRestoreCompletedTask = (todoId) => {
+
+    document.querySelector(`div[todoID="${todoId}"]`).remove();
+    todoList.push(completedList.find((todo) => todo.id === todoId));
+    completedList = completedList.filter((todo) => todo.id !== todoId);
+
+    const todo = todoList.find((todo) => todo.id === todoId);
+
+    renderTodo(todo);
+    updateLocalStorage();
+
+}
 
 const editTask = (todoID, todoTitle) => {
     editInputElement.value = todoTitle
@@ -141,8 +194,7 @@ const editTask = (todoID, todoTitle) => {
     editInputElement.focus();
 
     const handleClick = () => {
-        console.log("editado!")
-        
+
         todoList = todoList.map((todo) => {
             if (todo.id === todoID) {
                 todo.title = editInputElement.value
@@ -162,8 +214,10 @@ const editTask = (todoID, todoTitle) => {
 
 const handleDeleteClick = (todoId) => {
 
+    deletedList.push(todoList.find((todo) => todo.id === todoId));
     todoList = todoList.filter((todo) => todo.id !== todoId);
     document.querySelector(`div[todoID="${todoId}"]`).remove();
+
     updateLocalStorage();
 };
 
@@ -176,18 +230,34 @@ const handleInputChange = () => {
 };
 
 const updateLocalStorage = () => {
-    const parsedTodos = todoList.map((todo) => ({ ...todo, time: todo.time.getTime() }))
+    const parsedTodos = todoList.map((todo) => ({ ...todo, time: todo.time.getTime(), hidden: false, completed: false }));
     localStorage.setItem('tasks', JSON.stringify(parsedTodos));
+
+    const parsedCompletedTodos = completedList.map((todo) => ({ ...todo, completed: true, hidden: true, time: todo.time.getTime() }));
+    localStorage.setItem('completedTasks', JSON.stringify(parsedCompletedTodos))
+
+    const parsedDeletedTodos = deletedList.map((todo) => ({ ...todo, hidden: true, time: todo.time.getTime() }));
+    localStorage.setItem('deletedTasks', JSON.stringify(parsedDeletedTodos))
 };
 
 const refreshTasksFromLocalStorage = () => {
     const tasksFromLocalStorage = JSON.parse(localStorage.getItem('tasks'));
-
     if (!tasksFromLocalStorage) return;
 
     todoList = tasksFromLocalStorage.map((todo) => ({ ...todo, time: (new Date(todo.time)) }))
-
     todoList.forEach(renderTodo)
+
+    const currentCompletedTasks = JSON.parse(localStorage.getItem('completedTasks'));
+    if (!tasksFromLocalStorage) return;
+
+    completedList = currentCompletedTasks.map((todo) => ({ ...todo, time: (new Date(todo.time)) }))
+    completedList.forEach(renderCompletedTask);
+
+    // const currentDeletedTasks = JSON.parse(localStorage.getItem('deletedTasks'));
+    // if (!tasksFromLocalStorage) return;
+
+    // deletedList = currentDeletedTasks.map((todo) => ({ ...todo, time: (new Date(todo.time)) }))
+    // deletedList.forEach(renderDeletedTask)
 };
 
 const removeTask = () => {
@@ -195,11 +265,8 @@ const removeTask = () => {
     editInputElement.value = "";
 }
 
-
-
-addButton.addEventListener("click", () =>{
+addButton.addEventListener("click", () => {
     handleAddTask()
-    console.log(todoList)   
 });
 inputElement.addEventListener("change", () => handleInputChange());
 cancelBtn.addEventListener("click", () => removeTask());

@@ -5,10 +5,14 @@ const addButton = document.querySelector(".newTaskButton");
 const tasksContainer = document.querySelector(".tasksContainer");
 const completedContainer = document.querySelector(".completedTasksContainer");
 const editTaskContainer = document.querySelector(".editTaskContainer");
+const deletedContainer = document.querySelector(".deletedContainer");
 const editButton = document.querySelector(".editButton");
 const cancelBtn = document.querySelector(".cancelBtn");
 const editInputElement = document.querySelector(".editTaskInput");
 const saveEditButton = document.querySelector(".saveEditTaskButton");
+const closeTrashButtom = document.querySelector(".closeTrashBtn")
+const trashContainer = document.querySelector(".trashContainer")
+const openTrashButton = document.querySelector(".openTrash")
 
 let todoList = []
 let completedList = [];
@@ -137,6 +141,45 @@ const renderCompletedTask = (todo) => {
     }
 }
 
+const renderDeletedTask = (todo) => {
+    if (!document.querySelector(`div[todoId="${todo.id}"]`)) {
+        const deletedItem = document.createElement('div');
+        deletedItem.classList.add("deletedItem");
+        deletedItem.classList.add("divisor");
+        deletedItem.setAttribute('todoId', todo.id)
+
+        const taskContent = document.createElement('p');
+        taskContent.classList.add('task');
+        taskContent.innerText = todo.title;
+        deletedItem.appendChild(taskContent);
+
+        const buttonsContainer = document.createElement('section');
+        buttonsContainer.classList.add("buttonsTasks");
+        buttonsContainer.classList.add("buttons");
+        deletedItem.appendChild(buttonsContainer);
+
+        const completeButton = document.createElement('i');
+        completeButton.classList.add('fa-solid');
+        completeButton.classList.add('fa-rotate');
+        buttonsContainer.appendChild(completeButton);
+
+        completeButton.addEventListener("click", () => handleRestoreCompletedTask(todo.id))
+
+        const timeClockItem = document.createElement('footer');
+        timeClockItem.classList.add("clock");
+        timeClockItem.classList.add("footer");
+        deletedItem.appendChild(timeClockItem);
+
+        let registertime = document.createElement('h4');
+        registertime.classList.add("createdAt");
+        registertime.innerHTML = formatDateObject(todo.time);
+        timeClockItem.appendChild(registertime)
+        
+        deletedContainer.appendChild(deletedItem);
+        updateLocalStorage();
+    }
+}
+
 const handleAddTask = () => {
     const newTodo = createTodo(inputElement.value)
 
@@ -217,7 +260,7 @@ const handleDeleteClick = (todoId) => {
     deletedList.push(todoList.find((todo) => todo.id === todoId));
     todoList = todoList.filter((todo) => todo.id !== todoId);
     document.querySelector(`div[todoID="${todoId}"]`).remove();
-
+    renderDeletedTask(deletedList.find((todo) => todo.id === todoId))
     updateLocalStorage();
 };
 
@@ -248,16 +291,16 @@ const refreshTasksFromLocalStorage = () => {
     todoList.forEach(renderTodo)
 
     const currentCompletedTasks = JSON.parse(localStorage.getItem('completedTasks'));
-    if (!tasksFromLocalStorage) return;
+    if (!currentCompletedTasks) return;
 
     completedList = currentCompletedTasks.map((todo) => ({ ...todo, time: (new Date(todo.time)) }))
     completedList.forEach(renderCompletedTask);
 
-    // const currentDeletedTasks = JSON.parse(localStorage.getItem('deletedTasks'));
-    // if (!tasksFromLocalStorage) return;
+    const currentDeletedTasks = JSON.parse(localStorage.getItem('deletedTasks'));
+    if (!currentDeletedTasks) return;
 
-    // deletedList = currentDeletedTasks.map((todo) => ({ ...todo, time: (new Date(todo.time)) }))
-    // deletedList.forEach(renderDeletedTask)
+    deletedList = currentDeletedTasks.map((todo) => ({ ...todo, time: (new Date(todo.time)) }))
+    deletedList.forEach(renderDeletedTask)
 };
 
 const removeTask = () => {
@@ -270,5 +313,11 @@ addButton.addEventListener("click", () => {
 });
 inputElement.addEventListener("change", () => handleInputChange());
 cancelBtn.addEventListener("click", () => removeTask());
+closeTrashButtom.addEventListener("click", () => {
+    trashContainer.classList.add("hide")
+})
+openTrashButton.addEventListener("click", () => {
+    trashContainer.classList.remove("hide")
+})
 
 refreshTasksFromLocalStorage();

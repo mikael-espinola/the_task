@@ -14,9 +14,8 @@ body {
      rgba(0, 212, 255, 1) 100%
     );
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
+    align-items: center;
 }
 
 header {
@@ -42,13 +41,13 @@ header {
 }
 
 .container {
-    margin-top: 250px;
+    margin-top: 1.5rem;
     display: flex;
+    justify-content: flex-start;
     flex-direction: column;
-    padding: 30px 40px;
-    width: 70%;
+    width: 50%;
     min-width: 500px;
-    min-height: 80%;
+    max-height: 80%;
 }
 
 .editTaskContainer {
@@ -143,16 +142,56 @@ header {
     overflow: auto;
 }
 
+h2 {
+    padding-top: 20px;
+}
+
 .completedTasksContainer {
     background-color: #fff;
     padding: 30px 20px;
     margin-top: 10px;
     border-radius: 10px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    min-width: 63%;
-    min-height: 40%;
+    width: 52%;
+    min-height: 35%;
     margin-bottom: 16px;
     overflow: auto;
+}
+
+.trashContainer {
+    background-color: #fff;
+    padding: 30px 20px;
+    border-radius: 5px;
+    position: fixed;
+    z-index: 1;
+    top: 30px;
+    left: 15rem;
+    width: 650px;
+    height: 90%;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.headerTrash { 
+    width: 100%;
+    text-align: center;
+    padding-top: 7px;
+}
+
+.deletedContainer {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    padding: 30px 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 100%;
+    min-height: 85%;
+    margin-bottom: 16px;
+    overflow: auto;
+}
+
+.closeTrashBtn {
+    cursor: pointer;
+    color: #f0e3e3;
 }
 
 .taskItem, 

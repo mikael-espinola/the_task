@@ -41,7 +41,6 @@ const validLogin = () => {
         if(currentUser === user.email && pass === user.password){
             validedlogin = true;
             sessionStorage.setItem("user", user.email);
-            console.log(user.id)
             alert(`Welcome ${user.name}!`);
             location.href = "./components/pages/todoPage.html";
         };

@@ -11,8 +11,13 @@ const cancelBtn = document.querySelector(".cancelBtn");
 const editInputElement = document.querySelector(".editTaskInput");
 const saveEditButton = document.querySelector(".saveEditTaskButton");
 const closeTrashButtom = document.querySelector(".closeTrashBtn")
-const trashContainer = document.querySelector(".trashContainer")
+const modal = document.querySelector(".trashContainer")
 const openTrashButton = document.querySelector(".openTrash")
+const quitButton = document.querySelector(".quitButton")
+const modalQuit = document.querySelector(".modalQuit")
+const exitButton = document.querySelector("#exitButton")
+const stayButton = document.querySelector("#stayButton")
+
 
 let todoList = []
 let completedList = [];
@@ -163,7 +168,7 @@ const renderDeletedTask = (todo) => {
         completeButton.classList.add('fa-rotate');
         buttonsContainer.appendChild(completeButton);
 
-        completeButton.addEventListener("click", () => handleRestoreCompletedTask(todo.id))
+        completeButton.addEventListener("click", () => handleRestoreDeletedTask(todo.id))
 
         const timeClockItem = document.createElement('footer');
         timeClockItem.classList.add("clock");
@@ -229,6 +234,18 @@ const handleRestoreCompletedTask = (todoId) => {
     renderTodo(todo);
     updateLocalStorage();
 
+}
+
+const handleRestoreDeletedTask = (todoId) => {
+
+    document.querySelector(`div[todoID="${todoId}"]`).remove();
+    todoList.push(deletedList.find((todo) => todo.id === todoId));
+    deletedList = deletedList.filter((todo) => todo.id !== todoId);
+
+    const todo = todoList.find((todo) => todo.id === todoId);
+
+    renderTodo(todo);
+    updateLocalStorage();
 }
 
 const editTask = (todoID, todoTitle) => {
@@ -313,11 +330,27 @@ addButton.addEventListener("click", () => {
 });
 inputElement.addEventListener("change", () => handleInputChange());
 cancelBtn.addEventListener("click", () => removeTask());
-closeTrashButtom.addEventListener("click", () => {
-    trashContainer.classList.add("hide")
-})
-openTrashButton.addEventListener("click", () => {
-    trashContainer.classList.remove("hide")
-})
+
+openTrashButton.onclick = function () {
+    console.log("clicado!")
+    modal.showModal()
+}
+closeTrashButtom.onclick = function () { 
+    modal.close()
+}
+
+quitButton.onclick = function() {
+    modalQuit.showModal();
+}
+
+exitButton.onclick = function () { 
+    location.href = "../../index.html"
+}
+
+stayButton.onclick = function () {
+    modalQuit.close();
+}
+
+
 
 refreshTasksFromLocalStorage();

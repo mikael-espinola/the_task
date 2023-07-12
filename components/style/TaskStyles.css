@@ -40,6 +40,26 @@ header {
     font-size: 25px;
 }
 
+.buttonsHeader {
+    width: 13%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.openTrash,
+.quitButton {
+    padding: 3px 10px;
+    border: none;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+.openTrash:hover,
+.quitButton:hover {
+    background-color: #41b883;
+}
+
 .container {
     margin-top: 1.5rem;
     display: flex;
@@ -164,15 +184,24 @@ h2 {
     border-radius: 5px;
     position: fixed;
     z-index: 1;
-    top: 30px;
-    left: 15rem;
-    width: 650px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
     height: 90%;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.733);
+}
+
+dialog {
+    border: none;
+}
+
 .headerTrash { 
-    width: 100%;
+    width: 95%;
     text-align: center;
     padding-top: 7px;
 }
@@ -184,7 +213,7 @@ h2 {
     margin-top: 10px;
     border-radius: 10px;
     width: 100%;
-    min-height: 85%;
+    height: 85%;
     margin-bottom: 16px;
     overflow: auto;
 }
@@ -242,6 +271,7 @@ h2 {
 }
 
 .footerText {
+    position: relative;
     bottom: 0;
 }
 
@@ -259,4 +289,28 @@ h2 {
 
 .hide {
     display: none;
+}
+
+.modalQuit {
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    padding: 50px 20px;
+    border-radius: 5px;
+}
+
+.buttonsModal {
+    padding-top: 5px;
+}
+
+.btnModal {
+    width: 60px;
+    border: none;
+    padding: 10px 5px;
+    cursor: pointer;
+}
+
+.btnModal:hover {
+    background-color: #41b883;
 }

@@ -12,7 +12,14 @@
         <h1>The Task Delux</h1>
         <div class="buttonsHeader">
             <button class="openTrash">trash</button>
-            <button>quit</button>
+            <button class="quitButton">quit</button>
+            <dialog class="modalQuit">
+                <p>Sure about Exit?</p>
+                <section class="buttonsModal">
+                    <button class="btnModal" id="exitButton">YES</button>
+                    <button class="btnModal" id="stayButton">NO</button>
+                </section>
+            </dialog>
         </div>
     </header>
     <div class="container">
@@ -34,11 +41,11 @@
     </div>
     <h2>Completed tasks:</h2>
     <div class="completedTasksContainer"></div>
-    <div class="trashContainer hide">
+    <dialog class="trashContainer">
         <header class="headerTrash"><h3>Trash</h3></header>
         <div class="deletedContainer"></div>
         <button class="buttonsTasks closeTrashBtn">close</button>
-    </div>
+    </dialog>
 
     <footer class="footerText"><p>Created by Mikael Espínola © 2023 </p></footer>
 

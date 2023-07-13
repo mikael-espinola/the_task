@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../style/TaskStyles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Delux</title>
 </head>
+
 <body>
     <header class="title">
         <h1>The Task Delux</h1>
@@ -36,19 +40,39 @@
             </div>
             <button class="cancelBtn">cancel</button>
         </div>
-        
+
         <div class="tasksContainer"></div>
     </div>
     <h2>Completed tasks:</h2>
     <div class="completedTasksContainer"></div>
     <dialog class="trashContainer">
-        <header class="headerTrash"><h3>Trash</h3></header>
+        <header class="headerTrash">
+            <h3>Trash</h3>
+        </header>
         <div class="deletedContainer"></div>
         <button class="buttonsTasks closeTrashBtn">close</button>
     </dialog>
 
-    <footer class="footerText"><p>Created by Mikael Espínola © 2023 </p></footer>
+    <footer class="footerText">
+        <p>Created by Mikael Espínola © 2023 </p>
+    </footer>
+
+    <template id="rowTemplate">
+        <div class="taskItem divisor">
+            <p class="task completedTask"></p>
+            <section class="buttonsTasks buttons">
+                    <!-- <button class="taskManipulationButton"><i class="fa-solid fa-check-double checkButton"></i></button>
+                    <button class="taskManipulationButton"><i class="fa-solid fa-pen editButton"></i></button>
+                    <button class="taskManipulationButton"><i class="fa-regular fa-trash-can deletedButton"></i></button> -->
+            </section>
+            <footer class="clock footer">
+                <h4 class="createdAt"><i class="fa-solid fa-clock"></i><span></span></h4>
+            </footer>
+        </div>
+    </template>
+
 
     <script src="../core/scripts.js" type="module" defer></script>
 </body>
+
 </html>

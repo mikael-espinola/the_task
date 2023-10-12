@@ -12,10 +12,10 @@ This project serves as a learning experience for task management. The app demons
 
 <h2> How to Use </h2>
 
-Login: Start by logging into the system to access the main screen. <\br>
-** If you haven't an user registered just use the follow one: user/user to see how the system works.
+Login: Start by logging into the system to access the main page. <br />
+** If you don't have an user registered yet just use the follow one: user/user to see how the system works.
 
-Main Screen: After logging in, you will be directed to the main screen, where you can perform the following actions:
+Main page: After logging in, you will be directed to the main page, where you can perform the following actions:
 
 Create a new task.
 Manipulate pending tasks.
